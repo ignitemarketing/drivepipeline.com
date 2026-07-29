@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DrivePipeline — The AI Agent That Drives Deals to Close</title>
+<meta name="description" content="A RevOps AI agent for CROs and sales leaders. Real-time forecast accuracy, deal coaching, pipeline hygiene, and stage-by-stage deal velocity.">
+<meta name="theme-color" content="#0F766E">
+<meta property="og:title" content="DrivePipeline — The AI Agent That Drives Deals to Close">
+<meta property="og:description" content="A RevOps AI agent for CROs and sales leaders. Forecast accuracy, deal coaching, pipeline hygiene.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://drivepipeline.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F8FAFC' rx='6'/%3E%3Cpath d='M6 22 L12 16 L16 19 L26 8' stroke='%230F766E' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='26' cy='8' r='3' fill='%230F766E'/%3E%3C/svg%3E">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['Sora', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif']
+      },
+      colors: {
+        teal:    { 400: '#2DD4BF', 500: '#14B8A6', 600: '#0D9488', 700: '#0F766E', 800: '#115E59', 900: '#134E4A', 950: '#042F2E' },
+        amber:   { 400: '#FBBF24', 500: '#F59E0B' },
+        slate:   { 50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0', 700: '#334155', 800: '#1E293B', 900: '#0F172A' }
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  .font-display { font-family: 'Sora', system-ui, sans-serif; letter-spacing: -0.02em; }
+  *:focus-visible { outline: 3px solid #0F766E; outline-offset: 3px; border-radius: 6px; }
+  .grad-teal {
+    background: linear-gradient(120deg, #0F766E 0%, #14B8A6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(15,118,110,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,118,110,.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(100px);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(20px); animation: rise .7s ease-out forwards; }
+    .reveal-2 { animation-delay: .1s; }
+    .reveal-3 { animation-delay: .2s; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-teal-700 text-white px-4 py-2 rounded-md z-50 text-sm font-medium">Skip to content</a>
+
+<header class="sticky top-0 z-30 border-b border-slate-200 bg-slate-50/90 backdrop-blur">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3" aria-label="DrivePipeline home">
+      <span class="w-9 h-9 rounded-lg bg-teal-700 grid place-items-center" aria-hidden="true">
+        <svg class="w-5 h-5" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 22 L12 16 L16 19 L26 8" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="8" r="3" fill="white"/></svg>
+      </span>
+      <span class="font-display font-bold text-lg">Drive<span class="text-teal-700">Pipeline</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-700" aria-label="Primary">
+      <a href="#platform" class="hover:text-teal-700 transition-colors">Platform</a>
+      <a href="#dashboard" class="hover:text-teal-700 transition-colors">Dashboard</a>
+      <a href="#demo" class="hover:text-teal-700 transition-colors">Pricing</a>
+      <a href="#demo" class="inline-flex items-center gap-1.5 bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 rounded-lg font-semibold transition-colors min-h-[44px]">Book demo</a>
+    </nav>
+    <a href="#demo" class="md:hidden bg-teal-700 text-white px-4 py-2 rounded-lg text-sm font-semibold min-h-[44px] inline-flex items-center">Demo</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden grid-bg">
+    <span class="blob bg-teal-700 w-[500px] h-[500px] top-[-150px] right-[-100px]" aria-hidden="true"></span>
+    <span class="blob bg-amber-500 w-[300px] h-[300px] bottom-[-50px] left-[10%] opacity-25" aria-hidden="true"></span>
+    <div class="relative max-w-7xl mx-auto px-6 pt-20 pb-24 md:pt-32 md:pb-28">
+      <div class="grid md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-7 reveal">
+          <div class="inline-flex items-center gap-2 bg-teal-700/10 border border-teal-700/20 px-3 py-1.5 rounded-full text-xs font-semibold mb-7 text-teal-800 uppercase tracking-wider">
+            <span class="w-1.5 h-1.5 bg-teal-700 rounded-full" aria-hidden="true"></span>
+            AI RevOps Agent &middot; Forecast &amp; Deal Velocity
+          </div>
+          <h1 class="font-display text-5xl md:text-6xl lg:text-[5rem] font-bold leading-[1] tracking-tight mb-7">
+            Drive every deal<br>
+            <span class="grad-teal">to a verdict.</span>
+          </h1>
+          <p class="text-lg md:text-xl text-slate-700 leading-relaxed mb-10 max-w-2xl">
+            DrivePipeline is the AI agent that reads every email, every call, every CRM
+            note &mdash; and tells you, in real time, which deals will close, which are
+            sliding, and what your reps should do next.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 reveal reveal-2">
+            <a href="#demo" class="inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 text-white px-7 py-4 rounded-xl text-base font-semibold transition-colors min-h-[52px]">
+              Book a 20-min demo
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#platform" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 px-7 py-4 rounded-xl text-base font-semibold transition-colors min-h-[52px]">
+              See the platform
+            </a>
+          </div>
+        </div>
+        <aside class="md:col-span-5 reveal reveal-3">
+          <!-- Forecast dashboard mockup -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-teal-900/5 overflow-hidden">
+            <div class="border-b border-slate-200 px-5 py-3 flex items-center justify-between bg-slate-50">
+              <div>
+                <div class="text-xs text-slate-700 font-semibold">Q3 Forecast</div>
+                <div class="text-2xl font-display font-bold text-slate-900">$4.82M</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-slate-700 font-semibold">vs. quota</div>
+                <div class="text-lg font-display font-bold text-teal-700">112%</div>
+              </div>
+            </div>
+            <div class="p-5 space-y-3">
+              <!-- Bar chart mockup -->
+              <div class="flex items-end gap-2 h-32">
+                <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-teal-600 rounded-t" style="height:65%"></div><div class="text-[10px] text-slate-700">Best</div></div>
+                <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-teal-500 rounded-t" style="height:80%"></div><div class="text-[10px] text-slate-700">Commit</div></div>
+                <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-teal-400 rounded-t" style="height:100%"></div><div class="text-[10px] text-slate-700">AI</div></div>
+                <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-amber-500 rounded-t" style="height:45%"></div><div class="text-[10px] text-slate-700">Pull-in</div></div>
+                <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-slate-200 rounded-t" style="height:30%"></div><div class="text-[10px] text-slate-700">Risk</div></div>
+              </div>
+              <hr class="border-slate-200">
+              <!-- Deal list -->
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between text-sm">
+                  <span class="font-medium text-slate-900">Acme Corp</span>
+                  <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-teal-500"></span><span class="text-teal-700 font-semibold">$420k &middot; 92%</span></span>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                  <span class="font-medium text-slate-900">Globex Inc</span>
+                  <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span><span class="text-amber-600 font-semibold">$180k &middot; 58%</span></span>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                  <span class="font-medium text-slate-900">Initech Ltd</span>
+                  <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-500"></span><span class="text-rose-600 font-semibold">$95k &middot; 23%</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATFORM -->
+  <section id="platform" class="py-24 md:py-32 bg-white border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-2xl mb-16">
+        <div class="text-xs uppercase tracking-[0.2em] text-teal-700 font-bold mb-4">Platform</div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold leading-tight mb-5">
+          The CRO command centre, <span class="grad-teal">on autopilot.</span>
+        </h2>
+        <p class="text-lg text-slate-700">
+          Four jobs that used to take a RevOps team a quarter to ship. DrivePipeline ships them on day one.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <article class="rounded-2xl border border-slate-200 bg-slate-50 hover:border-teal-700 transition-colors p-7">
+          <div class="w-12 h-12 rounded-xl bg-teal-700 text-white flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2">Forecast accuracy</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">Real-time forecast from signals across emails, calls, calendar, CRM, contracts. The number the rep gives + the number the data gives.</p>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-slate-50 hover:border-teal-700 transition-colors p-7">
+          <div class="w-12 h-12 rounded-xl bg-teal-700 text-white flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2">Deal coaching</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">Reads every call transcript, every email thread. Tells the rep, before the next call, exactly what to do next &mdash; and what risk to address.</p>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-slate-50 hover:border-teal-700 transition-colors p-7">
+          <div class="w-12 h-12 rounded-xl bg-teal-700 text-white flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2">Pipeline hygiene</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">Stale stages, missing decision-makers, unrealistic close dates, no MEDDPICC fields. Flagged, escalated, or auto-corrected with one click.</p>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-slate-50 hover:border-teal-700 transition-colors p-7">
+          <div class="w-12 h-12 rounded-xl bg-teal-700 text-white flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2">Deal velocity</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">Stage-by-stage time-to-close benchmarks. Identifies the choke points, suggests interventions, measures the lift.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD QUOTE -->
+  <section id="dashboard" class="py-24 md:py-32 bg-teal-900 text-slate-50 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10" aria-hidden="true">
+      <svg class="w-full h-full" viewBox="0 0 800 400" preserveAspectRatio="none"><path d="M0 320 L100 280 L200 240 L300 260 L400 180 L500 120 L600 140 L700 80 L800 60 L800 400 L0 400 Z" fill="#2DD4BF"/></svg>
+    </div>
+    <div class="relative max-w-4xl mx-auto px-6 text-center">
+      <div class="text-xs uppercase tracking-[0.2em] text-teal-400 font-bold mb-6">From a customer</div>
+      <p class="font-display text-3xl md:text-4xl leading-snug mb-10 italic">
+        &ldquo;The first quarter our forecast was within 2% of actual in nine years of running
+        sales. DrivePipeline saw the slippage three weeks before the reps did.&rdquo;
+      </p>
+      <div class="inline-flex items-center gap-4">
+        <div class="w-14 h-14 rounded-full bg-teal-500 grid place-items-center text-white text-xl font-bold" aria-hidden="true">M</div>
+        <div class="text-left">
+          <div class="font-bold">Mark T.</div>
+          <div class="text-sm text-slate-200/70">CRO, mid-market B2B SaaS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="demo" class="py-24 md:py-32 bg-slate-50">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-800 via-teal-700 to-teal-600 text-white p-10 md:p-16">
+        <span class="blob bg-white w-[300px] h-[300px] top-[-100px] right-[-50px] opacity-15" aria-hidden="true"></span>
+        <div class="relative max-w-2xl">
+          <h2 class="font-display text-4xl md:text-5xl font-bold leading-tight mb-5">
+            Book a working session &mdash; <br>not a sales call.
+          </h2>
+          <p class="text-lg text-white/85 mb-8">
+            Bring your last forecast review. We&rsquo;ll load 30 days of your CRM into the
+            agent live on the call and show you exactly which deals it would have called
+            differently &mdash; and why.
+          </p>
+          <form class="flex flex-col sm:flex-row gap-3 max-w-lg" onsubmit="event.preventDefault(); document.getElementById('ok').classList.remove('hidden'); document.getElementById('form').classList.add('hidden')" id="form">
+            <label class="sr-only" for="email">Work email</label>
+            <input id="email" type="email" required placeholder="cro@company.com" class="flex-1 bg-white text-slate-900 placeholder-slate-700/60 px-5 py-4 rounded-xl outline-none text-base min-h-[52px]" aria-label="Work email">
+            <button type="submit" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-7 py-4 rounded-xl transition-colors inline-flex items-center justify-center gap-2 min-h-[52px]">
+              Book session
+            </button>
+          </form>
+          <div id="ok" class="hidden bg-white/15 border border-white/30 text-white rounded-xl px-6 py-4 max-w-lg font-medium mt-3" role="status" aria-live="polite">
+            We&rsquo;ll be in touch within the hour with a calendar link.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="border-t border-slate-200 bg-white py-12">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <span class="w-7 h-7 rounded-lg bg-teal-700 grid place-items-center" aria-hidden="true">
+        <svg class="w-4 h-4" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 22 L12 16 L16 19 L26 8" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="8" r="3" fill="white"/></svg>
+      </span>
+      <span class="font-display font-bold">Drive<span class="text-teal-700">Pipeline</span></span>
+      <span class="text-sm text-slate-700 ml-2">&copy; 2026 &mdash; AI RevOps for CROs &amp; sales leaders</span>
+    </div>
+    <a href="/cdn-cgi/l/email-protection#0a626f6666654a6e78637c6f7a637a6f6663646f24696567" class="text-sm text-slate-700 hover:text-teal-700 transition-colors"><span class="__cf_email__" data-cfemail="0b636e6767644b6f79627d6e7b627b6e6762656e25686466">[email&#160;protected]</span></a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>
