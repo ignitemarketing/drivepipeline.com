@@ -39,7 +39,7 @@ jobs:
         run: node --version
 
       - name: Tests
-        run: npx --yes html-validate@11.6.2 "**/*.html" && npx --yes linkinator@8.0.3 . --recurse --skip "^https?://" && ! grep -rEn 'http://localhost|127\.0\.0\.1' --include=*.html --include=*.css --include=*.js .
+        run: npx --yes --legacy-peer-deps html-validate@11.6.2 "**/*.html" && npx --yes --legacy-peer-deps linkinator@8.0.3 . --recurse --skip "^https?://" && ! grep -rEn 'http://localhost|127\.0\.0\.1' --include=*.html --include=*.css --include=*.js .
 
       - name: Verifier self-check (negative suite must fail)
         run: |
