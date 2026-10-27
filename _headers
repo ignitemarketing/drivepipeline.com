@@ -1,0 +1,11 @@
+# Cloudflare Pages response headers.
+# The CSP ships as Report-Only first: check the browser console on the live
+# page, then rename it to Content-Security-Policy. It allows today's page
+# (Tailwind Play CDN, inline config and handlers, Google Fonts) and the
+# self-hosted CSS/fonts that replace them; drop the CDN, Google hosts and
+# script 'unsafe-inline' once those are gone.
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
