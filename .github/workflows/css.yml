@@ -1,0 +1,44 @@
+# style.css and fonts/ are generated and committed so the deploy needs no
+# build step. This job rebuilds them and fails if the committed copies are stale.
+
+name: css
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: css-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  css-fresh:
+    name: css-fresh
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Install
+        if: ${{ !cancelled() }}
+        run: npm ci --no-audit --no-fund
+
+      - name: Rebuild fonts
+        if: ${{ !cancelled() }}
+        run: npm run build:fonts
+
+      - name: Rebuild CSS
+        if: ${{ !cancelled() }}
+        run: npm run build:css
+
+      - name: Generated files match the commit
+        if: ${{ !cancelled() }}
+        run: git diff --exit-code --stat -- style.css fonts/
