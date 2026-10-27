@@ -242,16 +242,10 @@ tailwind.config = {
             agent live on the call and show you exactly which deals it would have called
             differently &mdash; and why.
           </p>
-          <form class="flex flex-col sm:flex-row gap-3 max-w-lg" onsubmit="event.preventDefault(); document.getElementById('ok').classList.remove('hidden'); document.getElementById('form').classList.add('hidden')" id="form">
-            <label class="sr-only" for="email">Work email</label>
-            <input id="email" type="email" required placeholder="cro@company.com" class="flex-1 bg-white text-slate-900 placeholder-slate-700/60 px-5 py-4 rounded-xl outline-none text-base min-h-[52px]">
-            <button type="submit" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-7 py-4 rounded-xl transition-colors inline-flex items-center justify-center gap-2 min-h-[52px]">
-              Book session
-            </button>
-          </form>
-          <div id="ok" class="hidden bg-white/15 border border-white/30 text-white rounded-xl px-6 py-4 max-w-lg font-medium mt-3" role="status" aria-live="polite">
-            We&rsquo;ll be in touch within the hour with a calendar link.
-          </div>
+          <a href="mailto:hello@drivepipeline.com?subject=Working%20session%20request" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-7 py-4 rounded-xl transition-colors inline-flex items-center justify-center gap-2 min-h-[52px]">
+            Book session
+          </a>
+          <p class="text-sm text-white/85 mt-3">Or email hello@drivepipeline.com with a couple of times that suit you.</p>
         </div>
       </div>
     </div>
