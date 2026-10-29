@@ -24,7 +24,7 @@ concurrency:
 jobs:
   deploy:
     name: deploy
-    runs-on: ${{ vars.CI_DEPLOY_RUNNER == 'paid' && 'ubuntu-latest' || 'omarchy-secrets' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Check out
