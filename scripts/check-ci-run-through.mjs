@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Fails when a workflow check step could hide a later failure:
-//   - every step other than setup (checkout, setup-*) needs `if: ${{ !cancelled() }}`
+//   - every step other than setup (checkout, setup-*) needs `if: ${{ !cancelled() }}`,
+//     optionally gated on earlier steps: `if: ${{ !cancelled() && steps.<id>.outcome == 'success' }}`
 //   - no `run:` may chain commands with `&&`
 // Usage: node scripts/check-ci-run-through.mjs [workflow files...]
 // With no arguments it checks every file in .github/workflows/.
@@ -8,7 +9,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SETUP_USES = /^\s*-?\s*uses:\s*actions\/(checkout|setup-[a-z]+)@/m;
-const RUN_THROUGH = /^\s*-?\s*if:\s*\$\{\{\s*!cancelled\(\)\s*\}\}\s*$/m;
+const RUN_THROUGH = /^\s*-?\s*if:\s*\$\{\{\s*!cancelled\(\)(\s*&&\s*steps\.[\w-]+\.outcome\s*==\s*'success')*\s*\}\}\s*$/m;
 
 const indentOf = (line) => line.length - line.trimStart().length;
 

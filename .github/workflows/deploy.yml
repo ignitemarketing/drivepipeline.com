@@ -1,0 +1,47 @@
+# Deploys main to the Cloudflare Pages project drivepipeline-com.
+#
+# There is no build step: style.css and fonts/ are generated and committed
+# (css.yml keeps them fresh). The job copies the published files into dist/,
+# leaving out sources and tooling, and uploads that.
+#
+# A deploy stays fail-fast: each step runs only when the step before it
+# succeeded, written in the form scripts/check-ci-run-through.mjs accepts.
+
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ${{ vars.CI_DEPLOY_RUNNER == 'paid' && 'ubuntu-latest' || 'omarchy-secrets' }}
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Stage published files
+        id: stage
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' }}
+        run: rsync -a --exclude='.*' --exclude=dist --exclude=node_modules --exclude=scripts --exclude=src --exclude='package*.json' --exclude=tailwind.config.js ./ dist/
+
+      - name: Deploy to Cloudflare Pages
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=drivepipeline-com --branch=main
